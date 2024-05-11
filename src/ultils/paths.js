@@ -1,4 +1,4 @@
-export default path = {
+export const path = {
     PUBLIC:'/',
     HOME:'/home',
     LOGIN: '/login',
