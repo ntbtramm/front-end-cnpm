@@ -2,8 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import bg from '../../assets/images/authBG.svg'
 const PublicLayout = () => {
-  return (
-    
+  return (  
     <>
       <div className='flex w-full'>
         <div className='w-1/2'>
