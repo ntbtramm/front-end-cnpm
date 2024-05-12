@@ -6,8 +6,10 @@ import book1 from '../../assets/images/book1.png'
 import book2 from '../../assets/images/book2.png'
 import book3 from '../../assets/images/book3.png'
 import book4 from '../../assets/images/book4.png'
+import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const { IoIosSearch,IoIosArrowDown,FaArrowRight } = icons
+  const navigate = useNavigate()
   return (
     <>
       <div className='flex flex-col gap-12'>
@@ -55,7 +57,7 @@ const Home = () => {
                   <span className='text-[#C0C0C0]'>Robe</span>
                 </div>
               </div>
-              <div className='w-1/5 flex flex-col items-center hover:underline cursor-pointer'>
+              <div className='w-1/5 flex flex-col items-center hover:underline cursor-pointer' onClick={()=>navigate('/books')}>
                 <FaArrowRight size={50}/>
                 <span >Xem thêm</span>
               </div>
