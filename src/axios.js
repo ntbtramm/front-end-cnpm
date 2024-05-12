@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://some-domain.com/api/',
-    headers: {'X-Custom-Header': 'foobar'}
+    baseURL: 'http://localhost:5000',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    withCredentials: true,
 });
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {

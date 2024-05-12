@@ -23,16 +23,16 @@ const Home = () => {
                 />
               </div>
               <div className='flex justify-between mt-6'>
-                <span className='flex items-center'>Tên tác giả <IoIosArrowDown size={18}/></span>
-                <span className='flex items-center'>Thể loại <IoIosArrowDown size={18}/></span>
-                <span className='flex items-center'>Nhà xuất bản <IoIosArrowDown size={18}/></span>
+                <span className='flex items-center gap-1'>Tên tác giả <IoIosArrowDown size={18}/></span>
+                <span className='flex items-center gap-1'>Thể loại <IoIosArrowDown size={18}/></span>
+                <span className='flex items-center gap-1'>Nhà xuất bản <IoIosArrowDown size={18}/></span>
               </div>
             </div>
           </div>
         </div>
         <div>
           <h2 className=' text-[28px] mb-8 font-semibold'>Tác phẩm tiêu biểu</h2>
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-4 px-2'>
               <div className='w-4/5 flex gap-12 '>
                 <div className='flex flex-col gap-2'>
                   <img src={book1} alt="" />

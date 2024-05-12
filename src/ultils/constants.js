@@ -5,11 +5,11 @@ export const navigation = [
     },
     {
         title: 'Phiếu mượn',
-        path: '/borrowing'
+        path: '/borrow'
     },
     {
         title: 'Phiếu trả',
-        path: '/returning'
+        path: '/return'
     },
     {
         title: 'Sách',

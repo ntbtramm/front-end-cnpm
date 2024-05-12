@@ -4,5 +4,7 @@ export const path = {
     HOME:'/home',
     LOGIN: '/login',
     REGISTER: '/register',
-    ALL:'*'
+    ALL:'*',
+    BOOKS:'/books',
+    BORROW:'/borrow'
 }
