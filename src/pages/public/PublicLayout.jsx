@@ -2,6 +2,10 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import bg from '../../assets/images/authBG.svg'
 const PublicLayout = () => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (user) {
+    window.location.href = '/home'
+  }
   return (  
     <>
       <div className='flex w-full'>

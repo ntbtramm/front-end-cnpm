@@ -6,5 +6,6 @@ export const path = {
     REGISTER: '/register',
     ALL:'*',
     BOOKS:'/books',
-    BORROW:'/borrow'
+    BORROW:'/borrow',
+    ONE_BOOK:'/books/:book_id',
 }

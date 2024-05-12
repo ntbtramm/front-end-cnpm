@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom/dist'
+import { Link, useNavigate } from 'react-router-dom/dist'
 import { Button, InputField } from '../../components/public'
-import { login } from '../../apis/Auth'
+import { getUserInfo, login } from '../../apis/Auth'
+import { toast } from 'react-toastify'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
   const handleLogin = async() => {
     const data={
       email,
       password
     }
     const response = await login(data)
-    console.log(response)
+    if(response.status===200){
+      const res = await getUserInfo()
+      localStorage.setItem('user',JSON.stringify(res.data))
+      toast.success('Đăng nhập thành công')
+      navigate('/home')
+    }
+    else{
+      toast.error('Đăng nhập thất bại')
+    }
   }
   return (
     <div className='flex flex-col items-center mt-[200px] gap-6'>

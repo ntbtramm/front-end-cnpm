@@ -3,6 +3,10 @@ import { Footer, Header } from '../../components/private'
 import { Outlet } from 'react-router-dom/dist'
 
 const PrivateLayout = () => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (!user) {
+    window.location.href = '/login'
+  }
   return (
     <div className='w-full'>
       <Header/>

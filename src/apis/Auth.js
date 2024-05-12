@@ -6,3 +6,7 @@ export const login = async(data)=>Axios({
     url:'/login',
     data
 })
+export const getUserInfo = async()=>Axios({
+    method:'GET',
+    url:'/api/user/get_by_token'
+})
