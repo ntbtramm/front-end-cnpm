@@ -4,6 +4,18 @@ export const navigation = [
         path: '/home'
     },
     {
+        title: 'Độc giả',
+        path: '/reader'
+    },
+    {
+        title: 'Thể loại',
+        path: '/genre'
+    },
+    {
+        title: 'Tác giả',
+        path: '/author'
+    },
+    {
         title: 'Phiếu mượn',
         path: '/borrow'
     },

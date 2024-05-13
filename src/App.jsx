@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { Login, PublicLayout, Register } from './pages/public'
 import { path } from './ultils/paths'
-import { Books, Borrow, Home, OneBook, PrivateLayout } from "./pages/private"
+import { Author, Books, Borrow, BorrowCard, Genre, Home, OneBook, PrivateLayout, Reader } from "./pages/private"
 import { ToastContainer } from "react-toastify"
 
 function App() {
@@ -18,8 +18,11 @@ function App() {
         <Route path={path.PRIVATE} element={<PrivateLayout />}>
           <Route path={path.HOME} element={<Home />} />
           <Route path={path.BOOKS} element={<Books />} />
-          <Route path={path.BORROW} element={<Borrow />} />
+          <Route path={path.BORROW} element={<BorrowCard />} />
           <Route path={path.ONE_BOOK} element={<OneBook />} />
+          <Route path={path.GENRE} element={<Genre />} />
+          <Route path={path.AUTHOR} element={<Author />} />
+          <Route path={path.READER} element={<Reader/>} />
         </Route>
       </Routes>
       <ToastContainer

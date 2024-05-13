@@ -1,11 +1,15 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import bg from '../../assets/images/authBG.svg'
+import { useSelector } from 'react-redux'
 const PublicLayout = () => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (user) {
-    window.location.href = '/home'
-  }
+  const isLogin = useSelector(state => state.app?.isLogin)
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if (isLogin) {
+      navigate('/home')
+    }
+  },[])
   return (  
     <>
       <div className='flex w-full'>

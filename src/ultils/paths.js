@@ -8,4 +8,7 @@ export const path = {
     BOOKS:'/books',
     BORROW:'/borrow',
     ONE_BOOK:'/books/:book_id',
+    GENRE: '/genre',
+    AUTHOR: '/author',
+    READER: '/reader',
 }

@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Footer, Header } from '../../components/private'
-import { Outlet } from 'react-router-dom/dist'
+import { Outlet, useNavigate } from 'react-router-dom/dist'
+import { useSelector } from 'react-redux'
 
 const PrivateLayout = () => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (!user) {
-    window.location.href = '/login'
-  }
+  const isLogin = useSelector(state => state.app?.isLogin)
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if (!isLogin) {
+      navigate('/login')
+    }
+  },[])
   return (
     <div className='w-full'>
       <Header/>

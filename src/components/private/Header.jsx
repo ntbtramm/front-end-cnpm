@@ -4,11 +4,15 @@ import { navigation } from '../../ultils/constants'
 import { Link, useNavigate } from 'react-router-dom'
 import {icons} from '../../ultils/icons'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutSuccess } from '../../redux/appSlice'
 const Header = () => {
     const {LuUserCircle2} = icons
+    const user = useSelector(state => state.app?.user)
     const navigate =useNavigate()
+    const dispatch = useDispatch()
     const handleLogout = () => {
-        localStorage.removeItem('user')
+        dispatch(logoutSuccess())
         toast.success('Đăng xuất thành công')
         navigate('/login')
     }
@@ -34,7 +38,9 @@ const Header = () => {
             <div className='flex items-center gap-6'>
                 <div className='flex items-center gap-2'>
                     <LuUserCircle2 size={28}/>
-                    <span>Triệu</span>
+                    <span>
+                        {user?.user_name}
+                    </span>
                 </div>
                 <button className='px-4 py-2 bg-blue-500 text-white rounded-md' onClick={handleLogout}>Đăng xuất</button>
             </div>
