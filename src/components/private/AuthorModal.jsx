@@ -31,14 +31,14 @@ const AuthorModal = (props) => {
                         type="text"
                         className='w-full p-2 border border-gray-300 rounded-md'
                         value={authorId}
-                        onChange={(e) => setauthorId(e.target.value)}
+                        onChange={(e) => setAuthorId(e.target.value)}
                     />
                     <label className='font-semibold'>Tên tác giả</label>
                     <input
                         type="text"
                         className='w-full p-2 border border-gray-300 rounded-md'
                         value={authorName}
-                        onChange={(e) => setGenreName(e.target.value)}
+                        onChange={(e) => setAuthorName(e.target.value)}
                     />
                 </div>
                 <div className='flex justify-end gap-4 mt-6'>

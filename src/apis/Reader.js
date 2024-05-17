@@ -10,3 +10,8 @@ export const createReader = async(data)=>Axios({
     method:'POST',
     data
 })
+
+export const getAllReaderType = async()=>Axios({
+    url:'/api/reader_type/get_all',
+    method:'GET'
+})

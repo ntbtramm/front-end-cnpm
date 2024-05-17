@@ -17,7 +17,6 @@ const Login = () => {
       password
     }
     const response = await login(data)
-    console.log(response)
     if(response.status===200){
       const res = await getUserInfo()
       dispatch(loginSuccess(res.data))

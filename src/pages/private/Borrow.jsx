@@ -4,9 +4,11 @@ import { icons } from '../../ultils/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteBook } from '../../redux/appSlice'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 const Borrow = () => {
     const {CiCirclePlus}=icons
     const borrow = useSelector(state => state.app?.borrow)
+    const navigate = useNavigate()
     let quantity = borrow.reduce((total, item) => total + item.borrowedBook_quantity, 0)
     const dispatch = useDispatch()
     const handleDelete = (book_id)=>{
@@ -67,7 +69,10 @@ const Borrow = () => {
                             )
                         })}
                     </div>
-                    <div className='flex gap-2 items-center my-4 '>
+                    <div 
+                        className='flex gap-2 items-center my-4 '
+                        onClick={()=>navigate('/books')}
+                    >
                         <CiCirclePlus size={24}/>
                         <span className='cursor-pointer hover:text-orange-400'>
                             Thêm sách mượn

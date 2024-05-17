@@ -10,7 +10,6 @@ const Reader = () => {
   const [showModal, setShowModal] = useState(false)
   const getReader = async () => {
     const response = await getAllReaders()
-    console.log(response.data)
     setReader(response.data)
   }
   useEffect(() => {

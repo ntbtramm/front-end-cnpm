@@ -11,4 +11,7 @@ export const path = {
     GENRE: '/genre',
     AUTHOR: '/author',
     READER: '/reader',
+    ADD_BORROW:'/borrow/add',
+    DETAIL_BORROW:'/borrow/:id',
+    RETURN:'/return/:id'
 }
