@@ -6,14 +6,16 @@ import {icons} from '../../ultils/icons'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutSuccess } from '../../redux/appSlice'
+import { logout } from '../../apis/Auth'
 const Header = () => {
     const {LuUserCircle2} = icons
     const user = useSelector(state => state.app?.user)
     const navigate =useNavigate()
     const dispatch = useDispatch()
-    const handleLogout = () => {
+    const handleLogout =async () => {
+        await logout()
         dispatch(logoutSuccess())
-        toast.success('Đăng xuất thành công')
+        toast.success('Đăng xuất thành công')   
         navigate('/login')
     }
     return (

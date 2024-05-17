@@ -1,4 +1,4 @@
-import { data } from 'autoprefixer'
+
 import Axios from '../axios'
 
 export const login = async(data)=>Axios({
@@ -9,4 +9,9 @@ export const login = async(data)=>Axios({
 export const getUserInfo = async()=>Axios({
     method:'GET',
     url:'/api/user/get_by_token'
+})
+
+export const logout = async()=>Axios({
+    method:'GET',
+    url:'/api/user/logout'
 })

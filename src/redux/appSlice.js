@@ -19,7 +19,7 @@ const appSlice = createSlice({
         },
         borrowBook: (state, action) => {
             if(state.borrow.filter(item=>item.book_id === action.payload.book_id).length > 0) {
-                state.borrow = state.borrow.map(item => item.book_id === action.payload.book_id ? {...item, borrowedBook_quantity: item.borrowedBook_quantity + 1} : item)
+                state.borrow = state.borrow.map(item => item.book_id === action.payload.book_id ? {...item} : item)
                 return
             }else{
                 state.borrow?.push(action.payload)
@@ -27,9 +27,12 @@ const appSlice = createSlice({
         },
         deleteBook : (state, action) => {
             state.borrow = state.borrow.filter(item=>item.book_id !== action.payload)
+        },
+        destroyBorrowBook: (state) => {
+            state.borrow = []
         }
     }
 })
 
 export default appSlice.reducer
-export const { loginSuccess, logoutSuccess, borrowBook, deleteBook } = appSlice.actions
+export const { loginSuccess, logoutSuccess, borrowBook, deleteBook, destroyBorrowBook } = appSlice.actions

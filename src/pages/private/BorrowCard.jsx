@@ -19,9 +19,18 @@ const BorrowCard = () => {
   }
   return (
     <div className='flex flex-col gap-12'>
+      <div className='flex justify-between'>
       <div className='flex gap-12'>
         <span>Ngày</span>
         <input type="date" />
+      </div>
+      <div className='flex justify-center'>
+        <Button
+          name='Thêm phiếu mượn'
+          style='bg-blue-500 text-white p-2 rounded-md hover:bg-orange-500'
+          onClick={handleAddBorrowCard}
+        />
+      </div>
       </div>
       <div className='flex flex-col'>
         <span className='font-semibold text-[20px] mb-4'>Số phiếu: {borrowCard.length} </span>
@@ -47,13 +56,7 @@ const BorrowCard = () => {
           })}
         </div>
       </div>
-      <div className='flex justify-center'>
-        <Button
-          name='Thêm phiếu mượn'
-          style='bg-blue-500 text-white p-2 rounded-md hover:bg-orange-500'
-          onClick={handleAddBorrowCard}
-        />
-      </div>
+      
     </div>
   )
 }
