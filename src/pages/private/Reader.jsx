@@ -15,6 +15,7 @@ const Reader = () => {
   useEffect(() => {
     getReader()
   }, [])
+  console.log(reader)
   return (
     <div>
       {showModal && <ReaderModal setShowModal={setShowModal} />}
@@ -43,9 +44,9 @@ const Reader = () => {
                 <td className='px-12 text-center'>{item.user_id}</td>
                 <td className='px-12 text-center'>{item.user_name}</td>
                 <td className='px-12 text-center'>{item.reader_type===null?'không có':item.reader_type}</td>
-                <td className='px-12 text-center'>{item.created_date}</td>
-                <td className='px-12 text-center'>{item.expired_date}</td>
-                <td className='px-12 text-center'>{item.total_debt}</td>
+                <td className='px-12 text-center'>{item.created_at}</td>
+                <td className='px-12 text-center'>{item.expiry_date}</td>
+                <td className='px-12 text-center'>{item.penalty_owed}</td>
                 <td className='px-12 text-center flex '>
                   <button className='mr-2 w-[80px] p-1 bg-blue-500 rounded-md'>Sửa</button>
                   <button className='p-1 bg-red-500 rounded-md  w-[80px]'>Xóa</button>

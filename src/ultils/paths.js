@@ -13,5 +13,6 @@ export const path = {
     READER: '/reader',
     ADD_BORROW:'/borrow/add',
     DETAIL_BORROW:'/borrow/:id',
-    RETURN:'/return/:id'
+    RETURN_DETAIL:'/return/:id',
+    RETURN:'/return',
 }

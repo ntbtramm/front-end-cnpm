@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getOneBorrow } from '../../apis/Borrow'
 import { Button } from '../../components/public'
 import { BorrowModal } from '../../components/private'
+import { returnBook } from '../../apis/Return'
+import { toast } from 'react-toastify'
 
 const BorrowDetail = () => {
     const { id } = useParams()
@@ -12,6 +14,15 @@ const BorrowDetail = () => {
     const getBorrowData = async () => {
         const response = await getOneBorrow(id)
         setBorrow(response.data)
+    }
+    const handleReturnBook = async() =>{
+        const response = await returnBook(id)
+        if(response.status === 200){
+            toast.success('Trả sách thành công')
+            navigate('/borrow')
+        }else{
+            toast.error('Trả sách thất bại')
+        }
     }
     useEffect(() => {
         getBorrowData()
@@ -50,7 +61,7 @@ const BorrowDetail = () => {
                         <Button
                             name='Trả sách'
                             style='bg-blue-500 text-white p-2 rounded-md hover:bg-orange-500'
-                            onClick={() => { navigate('/return/' + id) }}
+                            onClick={() => { handleReturnBook(id) }}
                         />
                     </div>}
                 </div>
