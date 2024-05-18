@@ -20,10 +20,6 @@ export const navigation = [
         path: '/borrow'
     },
     {
-        title: 'Phiếu trả',
-        path: '/return'
-    },
-    {
         title: 'Sách',
         path: '/books'
     },

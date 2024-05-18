@@ -25,11 +25,9 @@ const OneBook = () => {
       return
     }
     else {
-      const borrowedBook_quantity = 1
       const borrowedBook = {
-        ...book,
-        ...bookDetail,
-        borrowedBook_quantity
+        book_id,
+        quantity:1
       }
       dispatch(borrowBook(borrowedBook))
       toast.success('Thêm sách vào phiếu mượn thành công!')

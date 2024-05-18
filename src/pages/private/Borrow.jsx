@@ -50,6 +50,7 @@ const Borrow = () => {
         await createBorrow(data)
         dispatch(destroyBorrowBook())
         toast.success('Mượn sách thành công!')
+        navigate('/borrow')
     }
     return (
         <>
