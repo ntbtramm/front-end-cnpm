@@ -61,14 +61,6 @@ const Borrow = () => {
                         <span className='text-[20px] font-semibold'>Số lượng sách</span>
                         <input type="text" value={quantity} disabled className='pl-6' />
                     </div>
-                    {/* <div className='flex gap-8'>
-                        <span className='text-[20px] font-semibold'>Ngày mượn</span>
-                        <input type="date" value={lending_date} onChange={(e)=>setLending_date(e.target.value)} className='w-[180px] pl-6' />
-                    </div> */}
-                    {/* <div className='flex gap-16'>
-                        <span className='text-[20px] font-semibold'>Ngày trả</span>
-                        <input type="date" value={return_date} onChange={(e)=>setReturn_date(e.target.value)} className='w-[180px] pl-6' />
-                    </div > */}
                     <div className='flex gap-7 items-center'>
                         <span className='text-[20px] font-semibold'>Người mượn</span>
                         <select className='px-4 py-2' name="" id="" onChange={(e) => setUserId(e.target.value)}>
