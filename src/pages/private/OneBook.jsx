@@ -67,35 +67,11 @@ const OneBook = () => {
             )
           })}
         </div>
-        {/* <div className='flex gap-3 items-center'>
-          <span className='font-semibold text-[24px]'>Giá: </span>
-          <span className='text-[24px]'>{book?.price}</span>
-        </div> */}
         <div className='flex gap-3 items-center'>
           <span className='font-semibold text-[24px]'>Thể loại: </span>
           <span className='text-[24px]'>{bookDetail?.genre_name}</span>
         </div>
 
-
-        {/* <div className='flex gap-3 items-center'>
-          <span className='font-semibold text-[24px]'>Năm xuất bản: </span>
-          <span className='text-[24px]'>{book?.publication_year}</span>
-        </div> */}
-        {/* <div className='flex gap-3 items-center'>
-          <span className='font-semibold text-[24px]'>Nhà xuất bản: </span>
-          <span className='text-[24px]'>{book?.publisher_name}</span>
-        </div> */}
-        {/* <div className='flex gap-3 items-center'>
-          <span className='font-semibold text-[24px]'>Số lượng: </span>
-          <span className='text-[24px]'>{book?.quantity}</span>
-        </div> */}
-        {/* <div>
-          <Button
-            name='Mượn sách'
-            style='bg-black text-white p-2 rounded-2xl hover:text-gray-300 w-[180px]'
-            onClick={handleBorrow}
-          />
-        </div> */}
         <>
           <h1>Editions: </h1>
           <ul>

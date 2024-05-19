@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputField } from '../../components/public'
 import { icons } from '../../ultils/icons'
-import { allBooks, allBook_titles , get_image_url} from '../../apis/Books'
+import { search_Book_titles, allBook_titles, get_image_url } from '../../apis/Books'
 import noImage from '../../assets/images/image.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const Books = () => {
     const { IoIosSearch } = icons
     const user = useSelector(state => state.app?.user)
     const [book_title, setBook_title] = useState([])
     const getAllBook_titles = async () => {
-        const response = await allBook_titles()
+        let response = await allBook_titles()
         setBook_title(response.data)
     }
-    
+
     const get_authors = (author_list) => {
         let authors = []
-        for (let i = 0; i < author_list.length; i++){
+        for (let i = 0; i < author_list.length; i++) {
             authors.push(
                 author_list[i]["author_name"]
             )
         }
-
         return authors.join(', ')
+    }
+
+    const Search_book = async (query) => {
+        return search_Book_titles(query).then((response) => {
+            setBook_title(response.data)
+        }).catch((error) => {
+            console.log('oops', error);
+        });
     }
 
     useEffect(() => {
@@ -41,23 +49,24 @@ const Books = () => {
                     <InputField
                         placeholder='Tìm kiếm sách...'
                         style='border-none px-2 py-1'
+                        setData={Search_book}
                     />
                 </div>
             </div>
             <div className='grid grid-cols-4 mt-8'>
-                {book_title.length > 0 && book_title.map((item) => {
+                {book_title.length > 0 ? book_title.map((item) => {
                     return (
                         <Link to={`/books/${item.book_title_id}`}>
-                        <div key={item.book_title_id} className='flex flex-col items-center gap-2 p-4 bg-white m-4 hover:shadow-xl'>
-                            <img src={get_image_url(item.image_id)} alt={item.book_name} className='w-[150px] h-[200px]' />
-                            <span>Mã sách: {item.book_title_id}</span>
-                            <span>Tên sách: {item.book_name}</span>
-                            <span>Thể loại: {item.genre_name}</span>
-                            <span>Tác giả: {get_authors(item.authors)}</span>
-                        </div>
+                            <div key={item.book_title_id} className='flex flex-col items-center gap-2 p-4 bg-white m-4 hover:shadow-xl'>
+                                <img src={get_image_url(item.image_id)} alt={item.book_name} className='w-[150px] h-[200px]' />
+                                <span>Mã sách: {item.book_title_id}</span>
+                                <span>Tên sách: {item.book_name}</span>
+                                <span>Thể loại: {item.genre_name}</span>
+                                <span>Tác giả: {get_authors(item.authors)}</span>
+                            </div>
                         </Link>
                     )
-                })}
+                }):"không tìm thấy kết quả"}
             </div>
         </div >
     )

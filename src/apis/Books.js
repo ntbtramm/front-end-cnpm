@@ -17,6 +17,10 @@ export const oneBook_title_details = async(book_title_id)=>Axios({
     url:`/api/book_title/get_detail?id=${book_title_id}`
 })
 
+export const search_Book_titles = async(query)=>Axios({
+    method:'GET',
+    url:`/api/book_title/search?query=${query}`
+})
 
 
 export const Book_by_title_id = async(book_title_id)=>Axios({
