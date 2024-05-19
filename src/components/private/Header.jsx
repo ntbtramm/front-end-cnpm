@@ -6,14 +6,16 @@ import {icons} from '../../ultils/icons'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutSuccess } from '../../redux/appSlice'
-import { logout } from '../../apis/Auth'
+import { delete_cookie } from '../../apis/Auth'
+
 const Header = () => {
     const {LuUserCircle2} = icons
     const user = useSelector(state => state.app?.user)
     const navigate =useNavigate()
     const dispatch = useDispatch()
     const handleLogout =async () => {
-        await logout()
+        // just delete the token
+        delete_cookie("session_token")
         dispatch(logoutSuccess())
         toast.success('Đăng xuất thành công')   
         navigate('/login')
@@ -24,8 +26,11 @@ const Header = () => {
                 <img src={logo} alt='logo' className='w-10 h-10 ' />
                 <span>Bull Library</span>
             </span>
-            <div className='flex gap-8'>
+            <div className='flex items gap-8' style={{width:"60%"}}>
                 {navigation.map((item,index) => {
+                    if (item.for_admin && !user.is_admin){
+                        return
+                    }
                     return (
                         <Fragment key={index}>
                             <Link to={item.path}>

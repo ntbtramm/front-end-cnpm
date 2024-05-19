@@ -1,30 +1,37 @@
 export const navigation = [
     {
         title: 'Trang chủ',
-        path: '/home'
+        path: '/home',
+        for_admin: false
     },
     {
         title: 'Độc giả',
-        path: '/reader'
+        path: '/reader',
+        for_admin: true
     },
     {
         title: 'Thể loại',
-        path: '/genre'
+        path: '/genre',
+        for_admin: true
     },
     {
         title: 'Tác giả',
-        path: '/author'
+        path: '/author',
+        for_admin: true
     },
     {
         title: 'Phiếu mượn',
-        path: '/borrow'
+        path: '/borrow',
+        for_admin: true
     },
     {
         title: 'Sách',
-        path: '/books'
+        path: '/books',
+        for_admin: false
     },
     {
         title: 'Báo cáo',
-        path: '/report'
+        path: '/report',
+        for_admin: true
     },
 ]

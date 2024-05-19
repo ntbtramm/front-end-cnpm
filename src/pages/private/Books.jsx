@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputField } from '../../components/public'
 import { icons } from '../../ultils/icons'
-import { allBooks } from '../../apis/Books'
+import { allBooks, allBook_titles , get_image_url} from '../../apis/Books'
 import noImage from '../../assets/images/image.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 const Books = () => {
     const { IoIosSearch } = icons
     const user = useSelector(state => state.app?.user)
-    const [books, setBooks] = useState([])
-    const getAllBooks = async () => {
-        const response = await allBooks()
-        setBooks(response.data)
-        console.log(response.data)
+    const [book_title, setBook_title] = useState([])
+    const getAllBook_titles = async () => {
+        const response = await allBook_titles()
+        setBook_title(response.data)
     }
+    
+    const get_authors = (author_list) => {
+        let authors = []
+        for (let i = 0; i < author_list.length; i++){
+            authors.push(
+                author_list[i]["author_name"]
+            )
+        }
+
+        return authors.join(', ')
+    }
+
     useEffect(() => {
-        getAllBooks()
+        getAllBook_titles()
     }, [])
     return (
         <div>
@@ -33,18 +45,17 @@ const Books = () => {
                 </div>
             </div>
             <div className='grid grid-cols-4 mt-8'>
-                {books.length > 0 && books.map((item) => {
+                {book_title.length > 0 && book_title.map((item) => {
                     return (
-                        <div key={item.book_id} className='flex flex-col items-center gap-2 p-4 bg-white m-4 hover:shadow-xl'>
-                            <Link to={`/books/${item.book_id}`}>
-                                <img src={`http://localhost:5000/api/image/get?id=${item.book_id}`} alt={item.title} className='w-[150px] h-[200px]' />
-                            </Link>
+                        <Link to={`/books/${item.book_title_id}`}>
+                        <div key={item.book_title_id} className='flex flex-col items-center gap-2 p-4 bg-white m-4 hover:shadow-xl'>
+                            <img src={get_image_url(item.image_id)} alt={item.book_name} className='w-[150px] h-[200px]' />
                             <span>Mã sách: {item.book_title_id}</span>
-                            <span>Giá: {item.price}</span>
-                            <span>Năm xuất bản {item.publication_year}</span>
-                            <span className='text-[12px]'>Nhà xuất bản: {item.publisher_name}</span>
-                            <span>Số lượng: {item.quantity}</span>
+                            <span>Tên sách: {item.book_name}</span>
+                            <span>Thể loại: {item.genre_name}</span>
+                            <span>Tác giả: {get_authors(item.authors)}</span>
                         </div>
+                        </Link>
                     )
                 })}
             </div>
