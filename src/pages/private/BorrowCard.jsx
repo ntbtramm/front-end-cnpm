@@ -3,6 +3,7 @@ import { getAllBorrow } from '../../apis/Borrow'
 import { icons } from '../../ultils/icons'
 import { Button } from '../../components/public'
 import { useNavigate } from 'react-router-dom'
+import {formatTime} from '../../ultils/helpers'
 const BorrowCard = () => {
   const { FaRegTrashCan } = icons
   const [borrowCard, setBorrowCard] = React.useState([])
@@ -20,10 +21,10 @@ const BorrowCard = () => {
   return (
     <div className='flex flex-col gap-12'>
       <div className='flex justify-between'>
-      <div className='flex gap-12'>
+      {/* <div className='flex gap-12'>
         <span>Ngày</span>
         <input type="date" />
-      </div>
+      </div> */}
       <div className='flex justify-center'>
         <Button
           name='Thêm phiếu mượn'
@@ -45,8 +46,8 @@ const BorrowCard = () => {
                 <div className='flex gap-12'>
                   <span>Phiếu số: {item.lending_id}</span>
                   <span>Số sách mượn: {item.items.length}</span>
-                  <span>Ngày mượn: {item.lending_date}</span>
-                  <span>Ngày trả: {item.return_date ? item.return_date : "Chưa trả"}</span>
+                  <span>Ngày mượn: {formatTime(new Date(item.lending_date))}</span>
+                  <span>Ngày trả: {item.return_date ? formatTime(new Date(item.return_date)) : "Chưa trả"}</span>
                 </div>
                 <div>
                   <FaRegTrashCan size={20} className='text-red-500 cursor-pointer' />

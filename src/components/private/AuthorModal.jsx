@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import { createAuthor } from '../../apis/Author'
 
 const AuthorModal = (props) => {
     const { setShowModal } = props
-    const [authorId, setAuthorId] = useState('')
     const [authorName, setAuthorName] = useState('')
     const handleAddGenre = async () => {
-        if (authorId === '' || authorName === '') {
+        if ( authorName === '') {
             toast.error('Vui lòng nhập đầy đủ thông tin')
         } else {
             const data = {
-                author_id: authorId,
                 author_name: authorName
             }
-            const response = await createGenre(data)
+            const response = await createAuthor(data)
             if (response.status === 200) {
                 setShowModal(false)
                 toast.success('Thêm thể loại thành công')
@@ -26,13 +25,7 @@ const AuthorModal = (props) => {
             <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-12'>
                 <h1 className='font-semibold text-[30px]'>Thêm tác giả</h1>
                 <div className='w-[300px]'>
-                    <label className='font-semibold'>Mã tác giả</label>
-                    <input
-                        type="text"
-                        className='w-full p-2 border border-gray-300 rounded-md'
-                        value={authorId}
-                        onChange={(e) => setAuthorId(e.target.value)}
-                    />
+                    
                     <label className='font-semibold'>Tên tác giả</label>
                     <input
                         type="text"

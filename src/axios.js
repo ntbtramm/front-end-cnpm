@@ -23,6 +23,7 @@ instance.interceptors.response.use(function (response) {
     // Do something with response data
     return response;
   }, function (error) {
+    localStorage.removeItem('persist:root')
     window.location.href = '/login';
     return Promise.reject(error);
   });
