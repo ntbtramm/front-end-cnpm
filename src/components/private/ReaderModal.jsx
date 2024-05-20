@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { createReader, getAllReaderType } from '../../apis/Reader'
+import { createReader, createReaderType, getAllReaderType } from '../../apis/Reader'
 import { formatBirthDay } from '../../ultils/helpers'
 const ReaderModal = (props) => {
     const { setShowModal, option } = props
@@ -11,24 +11,36 @@ const ReaderModal = (props) => {
     const [password, setPassword] = useState('')
     const [readerTypeId, setReaderTypeId] = useState(1)
     const [address, setAddress] = useState('')
+    const [readerTypeName, setReaderTypeName] = useState('')
     const handleAddReader = async () => {
-        if (email === '' || readerName === '' || birthday === '' || password === '' || readerTypeId === '' || address === '') {
-            toast.error('Vui lòng nhập đầy đủ thông tin')
-        } else {
-            const data = {
-                // reader_id: readerId,
-                user_name: readerName,
-                email: email,
-                password: password,
-                birthday: formatBirthDay(new Date(birthday)),
-                reader_type_id: +readerTypeId,
-                address: address
-
+        if(option === 'reader'){
+            if (email === '' || readerName === '' || birthday === '' || password === '' || readerTypeId === '' || address === '') {
+                toast.error('Vui lòng nhập đầy đủ thông tin')
+            } else {
+                const data = {
+                    user_name: readerName,
+                    email: email,
+                    password: password,
+                    birthday: formatBirthDay(new Date(birthday)),
+                    reader_type_id: +readerTypeId,
+                    address: address
+    
+                }
+                const response = await createReader(data)
+                if (response.status === 200) {
+                    setShowModal(false)
+                    toast.success('Thêm độc giả thành công')
+                }
             }
-            const response = await createReader(data)
-            if (response.status === 200) {
+        }
+        else if(option==='readerType'){
+            const data = {
+                reader_type: readerTypeName
+            }
+            const response = await createReaderType(data)
+            if(response.status===200){
                 setShowModal(false)
-                toast.success('Thêm độc giả thành công')
+                toast.success('Thêm loại độc giả thành công')
             }
         }
     }
@@ -37,7 +49,9 @@ const ReaderModal = (props) => {
         setReaderType(response.data)
     }
     useEffect(() => {
-        getReaderType()
+        if(option === ' reader'){
+            getReaderType()
+        }
     }, [])
     return (
         <div>
@@ -106,8 +120,8 @@ const ReaderModal = (props) => {
                             <input
                                 type="text"
                                 className='w-full p-2 border border-gray-300 rounded-md'
-                                value={readerName}
-                                onChange={(e) => setReaderName(e.target.value)}
+                                value={readerTypeName}
+                                onChange={(e) => setReaderTypeName(e.target.value)}
                             />
 
                         </div>
