@@ -4,6 +4,8 @@ import { Button } from '../../components/public'
 import { getAllReaders } from '../../apis/Reader'
 import { ReaderModal } from '../../components/private'
 import {formatTime} from '../../ultils/helpers'
+import { payPenalty } from '../../apis/User'
+import { toast } from 'react-toastify'
 
 const Reader = () => {
   const [reader, setReader] = useState([{}])
@@ -12,10 +14,19 @@ const Reader = () => {
     const response = await getAllReaders()
     setReader(response.data)
   }
+  const handlePayPenalty = async (data) => {
+    const response = await payPenalty(data)
+    if (response.status === 200) {
+      getReader()
+      toast.success('Trả nợ thành công')
+    }
+    else{
+      toast.error('Trả nợ thất bại')
+    }
+  }
   useEffect(() => {
     getReader()
   }, [])
-  console.log(reader)
   return (
     <div>
       {showModal && <ReaderModal setShowModal={setShowModal} />}
@@ -50,7 +61,10 @@ const Reader = () => {
                 <td className='flex justify-center items-center border-b '>
                   <button className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'>Sửa</button>
                   <button className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700'>Xóa</button>
-                  {item.penalty_owed >0 && <button className='p-1 w-[80px] bg-cyan-500-500 text-white rounded-md hover:bg-cyan-700'>Trả nợ</button>}
+                  {item.penalty_owed >0 && <button 
+                                            className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
+                                            onClick={()=>handlePayPenalty({user_id:item.user_id,amount:item.penalty_owed})}
+                                            >Trả nợ</button>}
                 </td>
               </tr>
             )
