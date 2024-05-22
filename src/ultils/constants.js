@@ -24,6 +24,10 @@ export const navigation = [
         path: '/books'
     },
     {
+        title: 'Tham số',
+        path: '/params'
+    },
+    {
         title: 'Báo cáo',
         path: '/report'
     },
