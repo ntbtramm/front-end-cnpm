@@ -24,7 +24,7 @@ instance.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
     localStorage.removeItem('persist:root')
-    window.location.href = '/login';
+    // window.location.href = '/login';
     return Promise.reject(error);
   });
 
