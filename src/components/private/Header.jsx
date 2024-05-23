@@ -9,6 +9,7 @@ import { logoutSuccess } from '../../redux/appSlice'
 import { logout } from '../../apis/Auth'
 const Header = () => {
     const {LuUserCircle2} = icons
+    const [select,setSelect] = React.useState('Trang chủ')
     const user = useSelector(state => state.app?.user)
     const navigate =useNavigate()
     const dispatch = useDispatch()
@@ -28,8 +29,8 @@ const Header = () => {
                 {navigation.map((item,index) => {
                     return (
                         <Fragment key={index}>
-                            <Link to={item.path}>
-                                <div className='hover:underline hover:font-semibold p-3'>
+                            <Link to={item.path} onClick={()=>setSelect(item.title)}>
+                                <div className={`hover:underline hover:font-semibold p-3 ${select===item.title?"underline semibold":""}`}>
                                     <span>{item.title}</span>
                                 </div>
                             </Link>

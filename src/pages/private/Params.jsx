@@ -37,7 +37,8 @@ const Params = () => {
     getParams()
   }, [])
   return (
-    <div className='flex flex-col gap-3'>
+    <>
+      <div className='flex flex-col gap-3 mb-12'>
       <div className='bg-gray-300 flex flex-col gap-4 p-6 rounded-md'>
         <div className='flex justify-between'>
           <div className='flex gap-3 items-center'>
@@ -161,6 +162,7 @@ const Params = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
