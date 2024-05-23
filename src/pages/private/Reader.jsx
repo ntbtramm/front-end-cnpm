@@ -4,7 +4,7 @@ import { Button } from '../../components/public'
 import { getAllReaderType, getAllReaders, getOneReaderType } from '../../apis/Reader'
 import { ReaderModal } from '../../components/private'
 import { formatTime } from '../../ultils/helpers'
-import { payPenalty } from '../../apis/User'
+import { payPenalty, Delete_user } from '../../apis/User'
 import { toast } from 'react-toastify'
 
 const Reader = () => {
@@ -30,13 +30,26 @@ const Reader = () => {
       toast.error('Trả nợ thất bại')
     }
   }
-  const getReaderTypeName = async(id)=>{
-    const response = await getOneReaderType(id)
-    return response.data
+
+  const handleDelete_user = async (user_id) => {
+    if (confirm('Are you sure?')) {
+
+      const response = await Delete_user(user_id)
+      if (response.status === 200) {
+        getReader()
+        toast.success('Xóa thành công')
+      }
+      else {
+        toast.error('Xóa thất bại')
+      }
+    }
+
   }
+
+
   useEffect(() => {
-      getReader()
-      getReaderType()
+    getReader()
+    getReaderType()
   }, [showModal])
   console.log(reader)
   return (
@@ -78,16 +91,18 @@ const Reader = () => {
                   <tr key={item.reader_id} className=''>
                     <td className='px-6 py-4 text-center border-b'>{item.user_id}</td>
                     <td className='px-6 py-4 text-center border-b'>{item.user_name}</td>
-                    <td className='px-6 py-4 text-center border-b'>{item.reader_type_id === null ? 'không có' : ()=>getReaderTypeName(item.reader_type_id)}</td>
+                    <td className='px-6 py-4 text-center border-b'>{item.reader_type === null ? 'không có' : item.reader_type}</td>
                     <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.created_at))}</td>
                     <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.expiry_date))}</td>
                     <td className='px-6 py-4 text-center border-b'>{item.penalty_owed}</td>
                     <td className='flex justify-center items-center border-b '>
                       <button className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'>Sửa</button>
-                      <button className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700'>Xóa</button>
+                      <button
+                        className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700' onClick={() => handleDelete_user(item.user_id)}>Xóa</button>
+
                       {item.penalty_owed > 0 && <button
                         className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
-                        onClick={() => handlePayPenalty({ user_id: item.user_id, amount: item.penalty_owed })}
+                        onClick={() => handlePayPenalty({ user_id: item.user_id, amount: prompt("nhập số tiền") })}
                       >Trả nợ</button>}
                     </td>
                   </tr>

@@ -15,3 +15,8 @@ export const payPenalty = async(data)=> Axios({
     method:'POST',
     data
 })
+
+export const Delete_user = async(user_id)=> Axios({
+    url:`/api/user/delete_user?id=${user_id}`,
+    method:'DELETE'
+})
