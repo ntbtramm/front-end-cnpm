@@ -20,7 +20,7 @@ const Author = () => {
 
 
     const handleDeleteClick = async(author) => {
-        await change_name(author.author_id, "");
+        await change_name(author.author_id, null);
         getAuthor();
     };
 
