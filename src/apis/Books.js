@@ -56,3 +56,8 @@ export const get_image_url = (image_id) => {
     }
     return "http://localhost:5000/api/image/get"
 }
+
+export const get_n_newest_book =async(n=4)=>Axios({
+    method:'GET',
+    url:`/api/book_title/get_new_books?n=${n}`
+})
