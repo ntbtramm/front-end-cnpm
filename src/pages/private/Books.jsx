@@ -6,7 +6,7 @@ import noImage from '../../assets/images/image.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { BookModal } from '../../components/private'
+import { BookModal, BookTitleModal } from '../../components/private'
 import { configureStore } from '@reduxjs/toolkit'
 
 const Books = () => {
@@ -51,7 +51,7 @@ const Books = () => {
     }, [showModal])
     return (
         <div>
-            {showModal && <BookModal setShowModal={setShowModal}/>}
+            {showModal && <BookTitleModal setShowModal={setShowModal}/>}
             <div className='flex justify-between items-center'>
                 {user?.is_admin === true ? <Button
                     name='Thêm sách'

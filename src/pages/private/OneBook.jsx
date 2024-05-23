@@ -6,13 +6,19 @@ import { Button } from '../../components/public'
 import { useDispatch } from 'react-redux'
 import { borrowBook } from '../../redux/appSlice'
 import { toast } from 'react-toastify'
+import { BookModal, BookTitleModal } from '../../components/private'
+import { useSelector } from 'react-redux'
 
 const OneBook = () => {
   const { book_id } = useParams()
 
   const book_title_id = book_id
 
+  const user = useSelector(state => state.app?.user)
+
   const [bookDetail, setBookDetail] = useState({})
+
+  const [showModal, setShowModal] = useState(false)
 
   const [image, setimage] = useState()
 
@@ -55,7 +61,7 @@ const OneBook = () => {
 
 
   function Edition(props) {
-    return <li><br />#{props.item.book_id} <br /> publication year: {props.item.publication_year}<br /> publisher name: {props.item.publisher_name}<br /> available: {props.item.available} <br /> {props.item.available != 0 ? <Button
+    return <li><br />#{props.item.book_id} <br /> publication year: {props.item.publication_year}<br /> publisher name: {props.item.publisher_name}<br /> available: {props.item.available} <br /> {user?.is_admin === true && props.item.available != 0 ? <Button
       name='Mượn sách'
       style='bg-black text-white p-2 rounded-2xl hover:text-gray-300 w-[180px]'
       onClick={() => handleBorrow(props.item.book_id)}
@@ -64,10 +70,11 @@ const OneBook = () => {
 
   useEffect(() => {
     getBook_details()
-  }, [])
+  }, [showModal])
 
   return (
     <div className='flex gap-12'>
+      {showModal && <BookModal setShowModal={setShowModal} book_title_id={bookDetail.book_title_id} />}
       <div className='w-1/2 p-6'>
         <img src={get_image_url(bookDetail.image_id)} alt="" />
       </div>
@@ -101,12 +108,20 @@ const OneBook = () => {
           <button onClick={() => handleUploadClick(bookDetail.book_title_id)}>Upload</button>
         </div>
 
-        <>
+        <div className='flex gap-3 items-bottom'>
           <h1>Editions: </h1>
           <ul>
             {bookDetail.editions?.map((item) => <Edition item={item} />)}
           </ul>
-        </>
+
+        </div>
+          {user?.is_admin === true ? <Button
+            name='Thêm phiên bản'
+            style='bg-black w-[180px] text-white rounded-2xl p-2 hover:text-gray-300'
+            onClick={() => { setShowModal(true) }}
+          /> : <div className='w-[180px]'></div>
+          }
+      
       </div>
     </div>
   )

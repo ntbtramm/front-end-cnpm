@@ -27,7 +27,7 @@ const BorrowDetail = () => {
                 <span>Ngày mượn: {formatTime(new Date(borrow.lending_date))}</span>
                 <span>Hạn trả sách: {formatTime(new Date(borrow.return_deadline))}</span>
                 <span>Mã người mượn: {borrow.user_id}</span>
-                {borrow.return_date ? <span>Ngày trả sách: {borrow.return_date}</span> : <span className='font-semibold text-[18px]'>Tình trạng: Chưa trả sách</span>}
+                {borrow.return_date ? <span>Ngày trả sách: {formatTime(new Date(borrow.return_date))}</span> : <span className='font-semibold text-[18px]'>Tình trạng: Chưa trả sách</span>}
                 <div className='my-4'>
                     <span className='font-semibold text-[20px] mb-8'>Danh sách sách mượn</span>
                     <div className='flex flex-col gap-4 mt-4'>

@@ -6,6 +6,11 @@ export const createBook = async (data) => Axios({
     data
 })
 
+export const createBookTitle = async (data) => Axios({
+    url: '/api/book_title/create',
+    method: 'POST',
+    data
+})
 export const allBook_titles = async () => Axios({
     method: 'GET',
     url: '/api/book_title/get_all'

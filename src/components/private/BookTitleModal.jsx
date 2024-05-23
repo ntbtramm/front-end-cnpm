@@ -1,28 +1,33 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { createBook } from '../../apis/Books'
-const BookModal = (props) => {
-    const { setShowModal, book_title_id } = props
-    const [publicationYear,setPublicationYear] = useState()
-    const [publisherId,setPublisherId] = useState()
-    const [price,setPrice] = useState()
+import { createBookTitle } from '../../apis/Books'
 
-    const handleAddBook = async() =>{
-        if(!publicationYear || !publisherId || !price){
+const BookTitleModal = (props) => {
+    const { setShowModal } = props
+
+    const [Book_name,setBook_name] = useState()
+    const [Genre_id,setGenre_id] = useState()
+    const [Author_ids,setAuthor_ids] = useState([])
+
+    const handleAddBookTitle = () =>{
+        if(!Book_name || !Genre_id || !Author_ids){
             toast.error('Vui lòng nhập đầy đủ các trường!')
         }
         else{
             const data={
-                book_title_id:book_title_id,
-                publication_year: publicationYear,
-                publisher_id: publisherId,
-                price: price
+                book_name:Book_name,
+                genre_id: Genre_id,
+                author_ids: Author_ids.split(" ")
             }
-            const response = await createBook(data)
-            if(response.status===200){
-                toast.success('Thêm sách thành công')
+            console.log(data)
+
+            return createBookTitle(data).then((response)=>{
                 setShowModal(false)
-            }
+                toast.success('Thêm sách thành công')
+            }).error((error)=>{
+                toast.success('Thêm sách không thành công')
+
+            })
         }
     }
     return (
@@ -31,34 +36,34 @@ const BookModal = (props) => {
             <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-12'>
             <h1 className='font-semibold text-[30px]'>Thêm sách mới</h1>
                 <div className='w-[300px]'> 
-                    <label className='font-semibold'>Năm phát hành</label>
+                    <label className='font-semibold'>Tên sách</label>
                     <input
                         type="text"
                         className='w-full p-2 border border-gray-300 rounded-md'
-                        value={publicationYear}
-                        onChange={(e) => setPublicationYear(e.target.value)}
+                        value={Book_name}
+                        onChange={(e) => setBook_name(e.target.value)}
                     />
                 </div>
                 <div className='w-[300px]'> 
-                    <label className='font-semibold'>Mã nhà phát hành</label>
+                    <label className='font-semibold'>Mã thể loại</label>
                     <input
                         type="text"
                         className='w-full p-2 border border-gray-300 rounded-md'
-                        value={publisherId}
-                        onChange={(e) => setPublisherId(e.target.value)}
+                        value={Genre_id}
+                        onChange={(e) => setGenre_id(e.target.value)}
                     />
                 </div>
                 <div className='w-[300px]'> 
-                    <label className='font-semibold'>Giá</label>
+                    <label className='font-semibold'>Mã tác giả (cách nhau bởi dấu cách)</label>
                     <input
                         type="text"
                         className='w-full p-2 border border-gray-300 rounded-md'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        value={Author_ids}
+                        onChange={(e) => setAuthor_ids(e.target.value)}
                     />
                 </div>
                 <div className='flex justify-end gap-4 mt-6'>
-                    <button className='p-2 bg-blue-500 text-white rounded-md' onClick={handleAddBook}>Xác nhận</button>
+                    <button className='p-2 bg-blue-500 text-white rounded-md' onClick={handleAddBookTitle}>Xác nhận</button>
                     <button className='p-2 bg-red-500 text-white rounded-md' onClick={() => setShowModal(false)}>Hủy</button>
                 </div>
             </div>
@@ -66,4 +71,4 @@ const BookModal = (props) => {
     )
 }
 
-export default BookModal
+export default BookTitleModal
