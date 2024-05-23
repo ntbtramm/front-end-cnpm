@@ -17,16 +17,15 @@ const BookTitleModal = (props) => {
             const data={
                 book_name:Book_name,
                 genre_id: Genre_id,
-                author_ids: Author_ids.split(" ")
+                author_ids: Author_ids.split(" ").map(Number)
             }
             console.log(data)
 
             return createBookTitle(data).then((response)=>{
                 setShowModal(false)
                 toast.success('Thêm sách thành công')
-            }).error((error)=>{
-                toast.success('Thêm sách không thành công')
-
+            }).catch((error)=>{
+                toast.error('Thêm sách không thành công')
             })
         }
     }

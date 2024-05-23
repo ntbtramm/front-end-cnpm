@@ -10,23 +10,28 @@ const BorrowModal = (props) => {
     const [book, setBook] = React.useState({})
     const dispatch = useDispatch()
     const handleAddBookToBorrow = () => {
-        const data = {
-            book_id: bookId,
-            quantity: quantity
-        }
-        const getOneBook = async () => {
-            const response = await oneBook(bookId)
+
+        return oneBook(bookId).then((response) => {
             setBook(response.data)
-        }
-        getOneBook()
-        if (book.quantity >= quantity) {
-            dispatch(borrowBook(data))
-            setShowBorrow(false)
-            toast.success('Thêm sách vào phiếu mượn thành công!')
-        }
-        else{
-            toast.error('Số lượng sách không đủ!')
-        }
+            return response.data
+        }).then((item) => {
+            console.log(item)
+
+            if (item.available >= quantity) {
+                setShowBorrow(false)
+
+
+                dispatch(borrowBook({
+                    book_id: bookId,
+                    quantity: quantity
+                }))
+
+                toast.success('Thêm sách vào phiếu mượn thành công!')
+            }
+            else {
+                toast.error('Số lượng sách không đủ!')
+            }
+        })
     }
     return (
         <div>

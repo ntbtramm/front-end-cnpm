@@ -7,24 +7,23 @@ const BookReceiptModal = (props) => {
     const [Book_ids,setBook_ids] = useState([])
     const [Quantities,setQuantities] = useState([])
 
-    const handleBookImport = async() =>{
+    const handleBookImport = () =>{
         if(Book_ids.split(" ").length===0 || Book_ids.split(" ").length != Quantities.split(" ").length){
-            toast.error('Vui lòng nhập đầy đủ các trường!')
+            return toast.error('Vui lòng nhập đầy đủ các trường!')
         }
         else{
             const data={
-                book_ids:Book_ids.split(" "),
-                quantities: Quantities.split(" ")
+                book_ids:Book_ids.split(" ").map(Number),
+                quantities: Quantities.split(" ").map(Number)
             }
 
             console.log(data)
 
             return createBookReceipt(data).then((response)=>{
                 setShowModal(false)
-                toast.success('Thêm sách thành công')
-            }).error((error)=>{
-                toast.success('Thêm sách không thành công')
-
+                toast.success('Nhập sách thành công')
+            }).catch((error)=>{
+                toast.error('Nhập sách không thành công')
             })
         }
     }
