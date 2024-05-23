@@ -35,22 +35,29 @@ const Borrow = () => {
         if(userId){
             const getOneUserEmail = async()=>{
                 const response = await getOneUser(userId)
-                console.log(response.data.email)
                 setEmail(response.data.email)
             }
             getOneUserEmail()
         }  
     },[userId])
     const handleAddBorrow = async () => {
-        const data = {
-            user_id: userId,
-            book_ids: borrow.map(item => +item.book_id),
-            quantities: borrow.map(item => +item.quantity)
+        if(!userId){
+            toast.error('Vui lòng chọn người mượn sách!')
         }
-        await createBorrow(data)
-        dispatch(destroyBorrowBook())
-        toast.success('Mượn sách thành công!')
-        navigate('/borrow')
+        else if(borrow.length===0){
+            toast.error('Vui lòng chọn sách cần mượn')
+        }
+        else{
+            const data = {
+                user_id: userId,
+                book_ids: borrow.map(item => +item.book_id),
+                quantities: borrow.map(item => +item.quantity)
+            }
+            await createBorrow(data)
+            dispatch(destroyBorrowBook())
+            toast.success('Mượn sách thành công!')
+            navigate('/borrow')
+        }
     }
     return (
         <>

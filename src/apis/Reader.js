@@ -21,3 +21,8 @@ export const createReaderType = async(data)=>Axios({
     method:'POST',
     data
 })
+
+export const getOneReaderType = async(id)=>Axios({
+    url:`/api/reader_type/get_one?id=${id}`,
+    method:'GET'
+})

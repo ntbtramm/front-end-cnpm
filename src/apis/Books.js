@@ -1,5 +1,10 @@
 import Axios from '../axios'
 
+export const createBook = async(data)=>Axios({
+    url:'/api/book/create',
+    method:'POST',
+    data
+})
 
 export const allBook_titles = async()=>Axios({
     method:'GET',

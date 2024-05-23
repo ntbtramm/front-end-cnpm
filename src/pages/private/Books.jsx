@@ -6,9 +6,11 @@ import noImage from '../../assets/images/image.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { BookModal } from '../../components/private'
 
 const Books = () => {
     const { IoIosSearch } = icons
+    const [showModal,setShowModal] = useState(false)
     const user = useSelector(state => state.app?.user)
     const [book_title, setBook_title] = useState([])
     const [search, setSearch] = useState('')
@@ -38,13 +40,15 @@ const Books = () => {
 
     useEffect(() => {
         getAllBook_titles()
-    }, [])
+    }, [showModal])
     return (
         <div>
+            {showModal && <BookModal setShowModal={setShowModal}/>}
             <div className='flex justify-between items-center'>
                 {user?.is_admin === true ? <Button
                     name='Thêm sách'
                     style='bg-black w-[180px] text-white rounded-2xl p-2 hover:text-gray-300'
+                    onClick={()=>{setShowModal(true)}}
                 /> : <div className='w-[180px]'></div>}
                 <div className='flex items-center border bg-white border-gray-300 p-2 rounded-2xl mt-2'>
                     <IoIosSearch size={30} 
