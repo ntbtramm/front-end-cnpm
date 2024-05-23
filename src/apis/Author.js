@@ -21,3 +21,14 @@ export const change_name = async (author_id, new_author_name) => {
         }
     });
 };
+
+export const delete_name = async (author_id) => {
+    return Axios({
+        method: 'POST',
+        url: '/api/author/change_name',
+        data: {
+            author_id: author_id,
+            new_author_name: null
+        }
+    });
+};

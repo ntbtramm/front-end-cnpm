@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/public';
-import { getAllAuthors, change_name } from '../../apis/Author';
+import { getAllAuthors, change_name, delete_name } from '../../apis/Author';
 import AuthorModal from '../../components/private/AuthorModal';
 
 const Author = () => {
@@ -20,7 +20,7 @@ const Author = () => {
 
 
     const handleDeleteClick = async(author) => {
-        await change_name(author.author_id, null);
+        await delete_name(author.author_id, null);
         getAuthor();
     };
 
