@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import noImage from '../../assets/images/image.png'
-import { oneBook_title_details, get_image_url } from '../../apis/Books'
+import { oneBook_title_details, get_image_url, upload_book_image } from '../../apis/Books'
 import { Button } from '../../components/public'
 import { useDispatch } from 'react-redux'
 import { borrowBook } from '../../redux/appSlice'
@@ -13,6 +13,8 @@ const OneBook = () => {
   const book_title_id = book_id
 
   const [bookDetail, setBookDetail] = useState({})
+
+  const [image, setimage] = useState()
 
   const dispatch = useDispatch()
 
@@ -31,6 +33,25 @@ const OneBook = () => {
     toast.success('Thêm sách vào phiếu mượn thành công!')
 
   }
+  const handleFileChange = (e) => {
+    if (e.target.files) {
+      setimage(e.target.files[0]);
+      console.log(e.target.files[0])
+    }
+  };
+
+
+  const handleUploadClick = (book_title_id) => {
+    if (!image) {
+      return;
+    }
+
+    return upload_book_image(book_title_id, image).then((response) => {
+      toast("success")
+    }).catch((error) => {
+      toast.error("upload failed")
+    });
+  };
 
 
   function Edition(props) {
@@ -70,6 +91,14 @@ const OneBook = () => {
         <div className='flex gap-3 items-center'>
           <span className='font-semibold text-[24px]'>Thể loại: </span>
           <span className='text-[24px]'>{bookDetail?.genre_name}</span>
+        </div>
+
+
+        <div className='flex gap-3 items-center'>
+          <span className='font-semibold text-[24px]'>image: </span>
+          <input type="file" onChange={handleFileChange} />
+
+          <button onClick={() => handleUploadClick(bookDetail.book_title_id)}>Upload</button>
         </div>
 
         <>
