@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { BookModal } from '../../components/private'
+import { configureStore } from '@reduxjs/toolkit'
 
 const Books = () => {
     const { IoIosSearch } = icons
@@ -30,12 +31,19 @@ const Books = () => {
     }
 
     const Search_book = async (query) => {
+        setSearch(query)
+        
         return search_Book_titles(query).then((response) => {
             setBook_title(response.data)
         }).catch((error) => {
-            console.log('oops', error);
-            toast.error(error)
+            toast.error("không tìm thấy sách")
         });
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            Search_book(); 
+        }
     }
 
     useEffect(() => {
@@ -54,12 +62,11 @@ const Books = () => {
                     <IoIosSearch size={30} 
                         className='cursor-pointer hover:bg-gray-300 hover:rounded-lg'
                         onClick={()=>{Search_book(search)}}
-                    />
+                        />
                     <InputField
                         placeholder='Tìm kiếm sách...'
                         style='border-none px-2 py-1 outline-none'
-                        setData={setSearch}
-                        data={search}
+                        setData={Search_book}
                     />
                 </div>
             </div>
