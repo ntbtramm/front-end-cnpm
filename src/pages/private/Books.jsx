@@ -32,6 +32,7 @@ const Books = () => {
             setBook_title(response.data)
         }).catch((error) => {
             console.log('oops', error);
+            toast.error(error)
         });
     }
 
@@ -47,11 +48,12 @@ const Books = () => {
                 /> : <div className='w-[180px]'></div>}
                 <div className='flex items-center border bg-white border-gray-300 p-2 rounded-2xl mt-2'>
                     <IoIosSearch size={30} 
+                        className='cursor-pointer hover:bg-gray-300 hover:rounded-lg'
                         onClick={()=>{Search_book(search)}}
                     />
                     <InputField
                         placeholder='Tìm kiếm sách...'
-                        style='border-none px-2 py-1'
+                        style='border-none px-2 py-1 outline-none'
                         setData={setSearch}
                         data={search}
                     />
