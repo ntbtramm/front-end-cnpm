@@ -14,6 +14,7 @@ const BorrowDetail = () => {
     const getBorrowData = async () => {
         const response = await getOneBorrow(id)
         setBorrow(response.data)
+        console.log(response.data)
     }
     
     useEffect(() => {
@@ -28,6 +29,7 @@ const BorrowDetail = () => {
                 <span>Hạn trả sách: {formatTime(new Date(borrow.return_deadline))}</span>
                 <span>Mã người mượn: {borrow.user_id}</span>
                 {borrow.return_date ? <span>Ngày trả sách: {formatTime(new Date(borrow.return_date))}</span> : <span className='font-semibold text-[18px]'>Tình trạng: Chưa trả sách</span>}
+                {borrow.return_date ? <span>tiền phạt: {borrow.penalty}</span> : ""}
                 <div className='my-4'>
                     <span className='font-semibold text-[20px] mb-8'>Danh sách sách mượn</span>
                     <div className='flex flex-col gap-4 mt-4'>
