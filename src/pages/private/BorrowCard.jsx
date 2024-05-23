@@ -47,7 +47,7 @@ const BorrowCard = () => {
       <div className='flex flex-col'>
         <span className='font-semibold text-[20px] mb-4'>Số phiếu: {borrowCard.length} </span>
         <div className='flex flex-col gap-4'>
-          {borrowCard.length > 0 && borrowCard.map((item) => {
+          {borrowCard.length > 0 && borrowCard.toReversed().map((item) => {
             return (
               <div 
                 className='flex justify-between items-center bg-white p-3 rounded-md cursor-pointer hover:bg-gray-200 transition-all'

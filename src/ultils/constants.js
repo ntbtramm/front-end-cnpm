@@ -30,8 +30,16 @@ export const navigation = [
         for_admin: false
     },
     {
+        title: 'Nhập sách',
+        path: '/bookreceipt',
+        for_admin: true
+
+    },
+    {
         title: 'Tham số',
-        path: '/params'
+        path: '/params',
+        for_admin: true
+
     },
     {
         title: 'Báo cáo',

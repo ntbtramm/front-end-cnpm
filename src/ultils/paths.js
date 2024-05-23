@@ -15,4 +15,6 @@ export const path = {
     DETAIL_BORROW:'/borrow/:id',
     REPORT:'/report',
     PARAMS:'/params',
+    BOOKRECEIPT: '/bookreceipt'
+
 }

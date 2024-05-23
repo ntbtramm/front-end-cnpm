@@ -101,12 +101,12 @@ const OneBook = () => {
         </div>
 
 
-        <div className='flex gap-3 items-center'>
+        {user?.is_admin === true && <div className='flex gap-3 items-center'>
           <span className='font-semibold text-[24px]'>image: </span>
           <input type="file" onChange={handleFileChange} />
 
           <button onClick={() => handleUploadClick(bookDetail.book_title_id)}>Upload</button>
-        </div>
+        </div>}
 
         <div className='flex gap-3 items-bottom'>
           <h1>Editions: </h1>
