@@ -31,12 +31,8 @@ const Reader = () => {
     }
   }
   useEffect(() => {
-    if (option === 'reader') {
       getReader()
-    }
-    else if (option === 'readerType') {
       getReaderType()
-    }
   }, [showModal])
   return (
     <div>
