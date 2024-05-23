@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { getAllBorrow } from '../../apis/Borrow'
+import { getAllBorrow, getAllBorrowByUser } from '../../apis/Borrow'
 import { icons } from '../../ultils/icons'
 import { Button } from '../../components/public'
 import { useNavigate } from 'react-router-dom'
 import {formatTime} from '../../ultils/helpers'
+import { useSelector } from 'react-redux'
 const BorrowCard = () => {
+  const {user} = useSelector(state=>state.app)
   const { FaRegTrashCan } = icons
   const [borrowCard, setBorrowCard] = React.useState([])
   const navigate = useNavigate()
@@ -12,8 +14,17 @@ const BorrowCard = () => {
     const response = await getAllBorrow()
     setBorrowCard(response.data)
   }
+  const getAllBorrowCardByUser = async () => {
+    const response = await getAllBorrowByUser(user?.user_id)
+    setBorrowCard(response.data)
+  }
   useEffect(() => {
-    getAllBorrowCard()
+    if(user.is_admin){
+      getAllBorrowCard()
+    }
+    else{
+      getAllBorrowCardByUser()
+    }
   }, [])
   const handleAddBorrowCard = () => {
     navigate('/borrow/add')
