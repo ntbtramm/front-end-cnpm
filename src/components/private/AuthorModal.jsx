@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { createAuthor } from '../../apis/Author'
-
 const AuthorModal = (props) => {
     const { setShowModal } = props
     const [authorName, setAuthorName] = useState('')

@@ -8,14 +8,23 @@ import book3 from '../../assets/images/book3.png'
 import book4 from '../../assets/images/book4.png'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { getAllAuthors } from '../../apis/Author'
 
 import { get_n_newest_book, get_image_url } from '../../apis/Books'
 
 const Home = () => {
   const { IoIosSearch, IoIosArrowDown, FaArrowRight } = icons
   const navigate = useNavigate()
-
+  const [search, setSearch] = useState('')
   const [newest_books, setnewest_books] = useState([])
+
+  const author = getAllAuthors
+
+  const handlepress = async(e) => {
+    if(e.key === 'enter'){
+
+    }
+  }
 
   const get_newest_books = async () => {
     const response = await get_n_newest_book(4)
@@ -50,9 +59,22 @@ const Home = () => {
                 />
               </div>
               <div className='flex justify-between mt-6'>
-                <span className='flex items-center gap-1'>Tên tác giả <IoIosArrowDown size={18} /></span>
-                <span className='flex items-center gap-1'>Thể loại <IoIosArrowDown size={18} /></span>
-                <span className='flex items-center gap-1'>Nhà xuất bản <IoIosArrowDown size={18} /></span>
+                  <div className='flex items-center gap-1'>
+                    <select name="author" id="author" className='flex items-center gap-1'>
+                      <option >Tên tác giả</option>
+                      
+                    </select>
+                  </div>
+                  <div className='flex items-center gap-1'>
+                    <select name="type" id="type">
+                      <option >Thể loại</option>
+                    </select>
+                  </div>
+                  <div className='flex items-center gap-1'>
+                    <select name="publisher" id="publisher">
+                      <option >Nhà xuất bản</option>
+                    </select>
+                  </div>
               </div>
             </div>
           </div>
