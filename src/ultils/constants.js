@@ -30,6 +30,10 @@ export const navigation = [
         for_admin: false
     },
     {
+        title: 'Tham số',
+        path: '/params'
+    },
+    {
         title: 'Báo cáo',
         path: '/report',
         for_admin: true

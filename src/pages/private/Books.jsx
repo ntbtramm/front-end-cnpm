@@ -6,13 +6,16 @@ import noImage from '../../assets/images/image.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { BookModal } from '../../components/private'
 
 const Books = () => {
     const { IoIosSearch } = icons
+    const [showModal,setShowModal] = useState(false)
     const user = useSelector(state => state.app?.user)
     const [book_title, setBook_title] = useState([])
+    const [search, setSearch] = useState('')
     const getAllBook_titles = async () => {
-        let response = await allBook_titles()
+        const response = await allBook_titles()
         setBook_title(response.data)
     }
 
@@ -31,25 +34,32 @@ const Books = () => {
             setBook_title(response.data)
         }).catch((error) => {
             console.log('oops', error);
+            toast.error(error)
         });
     }
 
     useEffect(() => {
         getAllBook_titles()
-    }, [])
+    }, [showModal])
     return (
         <div>
+            {showModal && <BookModal setShowModal={setShowModal}/>}
             <div className='flex justify-between items-center'>
                 {user?.is_admin === true ? <Button
                     name='Thêm sách'
                     style='bg-black w-[180px] text-white rounded-2xl p-2 hover:text-gray-300'
+                    onClick={()=>{setShowModal(true)}}
                 /> : <div className='w-[180px]'></div>}
                 <div className='flex items-center border bg-white border-gray-300 p-2 rounded-2xl mt-2'>
-                    <IoIosSearch size={30} />
+                    <IoIosSearch size={30} 
+                        className='cursor-pointer hover:bg-gray-300 hover:rounded-lg'
+                        onClick={()=>{Search_book(search)}}
+                    />
                     <InputField
                         placeholder='Tìm kiếm sách...'
-                        style='border-none px-2 py-1'
-                        setData={Search_book}
+                        style='border-none px-2 py-1 outline-none'
+                        setData={setSearch}
+                        data={search}
                     />
                 </div>
             </div>

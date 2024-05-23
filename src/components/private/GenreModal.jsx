@@ -4,14 +4,12 @@ import { toast } from 'react-toastify'
 
 const GenreModal = (props) => {
     const { setShowModal } = props
-    const [genreId, setGenreId] = useState('')
     const [genreName, setGenreName] = useState('')
     const handleAddGenre = async () => {
-        if (genreId === '' || genreName === '') {
+        if ( genreName === '') {
             toast.error('Vui lòng nhập đầy đủ thông tin')
         } else {
             const data = {
-                genre_id: genreId,
                 genre_name: genreName
             }
             const response = await createGenre(data)
@@ -27,13 +25,6 @@ const GenreModal = (props) => {
             <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-12'>
                 <h1 className='font-semibold text-[30px]'>Thêm thể loại</h1>
                 <div className='w-[300px]'>
-                    <label className='font-semibold'>Mã thể loại</label>
-                    <input
-                        type="text"
-                        className='w-full p-2 border border-gray-300 rounded-md'
-                        value={genreId}
-                        onChange={(e) => setGenreId(e.target.value)}
-                    />
                     <label className='font-semibold'>Tên thể loại</label>
                     <input
                         type="text"

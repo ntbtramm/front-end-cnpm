@@ -9,3 +9,9 @@ export const getOneUser = async(id)=> Axios({
     url:`/api/user/get_one?id=${id}`,
     method:'GET'    
 })
+
+export const payPenalty = async(data)=> Axios({
+    url:`/api/user/pay_penalty`,
+    method:'POST',
+    data
+})
