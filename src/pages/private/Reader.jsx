@@ -22,12 +22,12 @@ const Reader = () => {
 
   }
 
-  const handlept = async(id) => {
+  const handlept = async (id) => {
     const response = await getOneUser(id);
     set_user_pt(response.data);
     set_user_id(id);
   }
-  const handleCancel = () =>{
+  const handleCancel = () => {
     set_user_id(null);
   }
   const getReaderType = async () => {
@@ -63,20 +63,20 @@ const Reader = () => {
     getReader();
     getReaderType();
   }, [showModal])
-  // console.log(reader)
+  console.log(reader)
   return (
     <div>
-      {showModal && <ReaderModal 
-                      option={option} 
-                      user_pt={user_pt} 
-                      currentReader={currentReader} 
-                      setShowModal={setShowModal} 
-                    />}
-      {showCollectionModal && <CollectionModal  user_pt={user_pt} 
-                                                currentReader={currentReader}   
-                                                setShowCollectionModal={setShowCollectionModal} 
-                                                user_id={user_id}
-                              />}
+      {showModal && <ReaderModal
+        option={option}
+        user_pt={user_pt}
+        currentReader={currentReader}
+        setShowModal={setShowModal}
+      />}
+      {showCollectionModal && <CollectionModal user_pt={user_pt}
+        currentReader={currentReader}
+        setShowCollectionModal={setShowCollectionModal}
+        user_id={user_id}
+      />}
       <div className='flex items-center justify-center gap-4'>
         <div
           className={`w-[180px] text-center bg-gray-100 p-2 rounded-md cursor-pointer ${option === 'reader' && 'text-orange-500'}`}
@@ -119,15 +119,18 @@ const Reader = () => {
                       <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.expiry_date))}</td>
                       <td className='px-6 py-4 text-center border-b'>{item.penalty_owed}</td>
                       <td className='flex justify-center items-center border-b '>
-                        <button
-                          className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700' onClick={() => handleDelete_user(item.user_id)}>Xóa</button>
+                        {item?.is_admin === false && <button
+                          className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700' onClick={() => handleDelete_user(item.user_id)}>
+                          Xóa
+                        </button>}
+
                         {item.penalty_owed > 0 && <button
                           className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
                           onClick={() => handlePayPenalty({ user_id: item.user_id, amount: prompt("nhập số tiền") })}
                         >Trả nợ</button>}
-                        {item.penalty_owed > 0 && <button
+                        {item?.fine_collections?.length > 0 && <button
                           className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
-                          onClick={() =>{ handlept(item.user_id); setShowCollectionModal(true); setCurrentReader(item)}}
+                          onClick={() => { handlept(item.user_id); setShowCollectionModal(true); setCurrentReader(item) }}
                         >Phiếu thu tiền</button>}
                       </td>
                     </tr>
@@ -181,7 +184,7 @@ const Reader = () => {
             <thead className='bg-gray-100  border-gray-300'>
               <tr className=''>
                 <th className='px-6 py-4 text-[16px] font-medium'>Tên loại độc giả</th>
-                <th className='px-6 py-4 text-[16px] font-medium'>Thao tác</th>
+                {/* <th className='px-6 py-4 text-[16px] font-medium'>Thao tác</th> */}
               </tr>
             </thead>
             <tbody>
@@ -189,10 +192,10 @@ const Reader = () => {
                 return (
                   <tr key={item.reader_id} className=''>
                     <td className='px-6 py-4 text-center border-b'>{item.reader_type}</td>
-                    <td className='px-6 py-4 text-center border-b'>
+                    {/* <td className='px-6 py-4 text-center border-b'>
                       <button className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'>Sửa</button>
                       <button className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700'>Xóa</button>
-                    </td>
+                    </td> */}
                   </tr>
                 )
               })}
@@ -201,7 +204,8 @@ const Reader = () => {
         </>
       )}
     </div>
-  )}
-  
+  )
+}
+
 
 export default Reader
