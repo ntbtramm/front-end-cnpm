@@ -52,6 +52,7 @@ const ReaderModal = (props) => {
         if(option === ' reader'){
             getReaderType()
         }
+        getReaderType()
     }, [])
     return (
         <div>
