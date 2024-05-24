@@ -11,17 +11,19 @@ import { Link } from 'react-router-dom'
 import { getAllAuthors } from '../../apis/Author'
 
 import { get_n_newest_book, get_image_url } from '../../apis/Books'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
-  const { IoIosSearch, IoIosArrowDown, FaArrowRight } = icons
+  const { IoIosSearch, IoIosArrowDown, FaArrowRight, FaHandPeace } = icons
+  const { user } = useSelector(state => state.app)
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [newest_books, setnewest_books] = useState([])
 
   const author = getAllAuthors
 
-  const handlepress = async(e) => {
-    if(e.key === 'enter'){
+  const handlepress = async (e) => {
+    if (e.key === 'enter') {
 
     }
   }
@@ -30,14 +32,14 @@ const Home = () => {
     const response = await get_n_newest_book(4)
     setnewest_books(response.data)
   }
-  const get_authors = (author_list, max_length=10) => {
+  const get_authors = (author_list, max_length = 10) => {
     let authors = []
     for (let i = 0; i < author_list.length; i++) {
       authors.push(
         author_list[i]["author_name"]
       )
     }
-    return authors.join(', ').substring(0,max_length);
+    return authors.join(', ').substring(0, max_length);
   }
 
 
@@ -50,32 +52,10 @@ const Home = () => {
         <div className='flex gap-12'>
           <img src={banner} alt="" />
           <div>
-            <h2 className=' text-[18px] mb-6'>Tìm kiếm sách</h2>
-            <div className=' bg-white rounded-md p-4 w-[600px]'>
-              <div className='flex items-center gap-4'>
-                <IoIosSearch size={40} color='gray' />
-                <InputField
-                  placeholder='Tìm kiếm sách, tác giả, loại sách...'
-                />
-              </div>
-              <div className='flex justify-between mt-6'>
-                  <div className='flex items-center gap-1'>
-                    <select name="author" id="author" className='flex items-center gap-1'>
-                      <option >Tên tác giả</option>
-                      
-                    </select>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <select name="type" id="type">
-                      <option >Thể loại</option>
-                    </select>
-                  </div>
-                  <div className='flex items-center gap-1'>
-                    <select name="publisher" id="publisher">
-                      <option >Nhà xuất bản</option>
-                    </select>
-                  </div>
-              </div>
+            <h2 className=' text-[24px] font-semibold mb-6'>HOME PAGE</h2>
+            <div className='flex flex-col  rounded-md p-4 w-[600px]'>
+              <span className='text-[40px] flex items-center gap-4'>Xin chào <span className='font-semibold underline'>{user.user_name}</span>  <FaHandPeace color='orange' size={48} /></span>
+              <span className='text-[40px]'>Chúc một ngày mới tốt lành !</span>
             </div>
           </div>
         </div>
@@ -87,7 +67,7 @@ const Home = () => {
                 return (
                   <Link to={`/books/${item.book_title_id}`}>
                     <div key={item.book_title_id} className='flex flex-col gap-2'>
-                      <img src={get_image_url(item.image_id)} alt="item.book_name" />
+                      <img src={get_image_url(item.image_id)} alt="item.book_name" className='w-[220px] h-[300px] object-cover' />
                       <span className='text-[18px]'>{item.book_name}</span>
                       <span className='text-[#C0C0C0]'>{get_authors(item.authors)}</span>
                     </div>
