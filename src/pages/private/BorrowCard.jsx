@@ -36,17 +36,19 @@ const BorrowCard = () => {
         <span>Ngày</span>
         <input type="date" />
       </div> */}
-      <div className='flex justify-center'>
+      {user.is_admin && <div className='flex justify-center'>
         <Button
           name='Thêm phiếu mượn'
           style='bg-blue-500 text-white p-2 rounded-md hover:bg-orange-500'
           onClick={handleAddBorrowCard}
         />
-      </div>
+        </div>}
+      
       </div>
       <div className='flex flex-col'>
         <span className='font-semibold text-[20px] mb-4'>Số phiếu: {borrowCard.length} </span>
-        <div className='flex flex-col gap-4'>
+        {borrowCard.length > 0 ? (
+          <div className='flex flex-col gap-4'>
           {borrowCard.length > 0 && borrowCard.toReversed().map((item) => {
             return (
               <div 
@@ -61,14 +63,18 @@ const BorrowCard = () => {
                   <span>Ngày trả: {item.return_date ? formatTime(new Date(item.return_date)) : "Chưa trả"}</span>
                 </div>
                 <div>
-                  <FaRegTrashCan size={20} className='text-red-500 cursor-pointer' />
+                  {/* <FaRegTrashCan size={20} className='text-red-500 cursor-pointer' /> */}
                 </div>
               </div>
             )
           })}
         </div>
-      </div>
-      
+        ): (
+          <div className='text-center  text-[20px]'>
+            <span>Người dùng <span className='font-semibold underline'>{user.user_name}</span> hiện tại chưa có phiếu mượn nào, vui lòng liên hệ ADMIN để được hổ trợ mượn sách</span>
+          </div>
+        ) }
+      </div>   
     </div>
   )
 }

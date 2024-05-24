@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Button } from '../../components/public'
 import { getAllReaderType, getAllReaders, getOneReaderType } from '../../apis/Reader'
-import { ReaderModal } from '../../components/private'
+import { CollectionModal, ReaderModal } from '../../components/private'
 import { formatTime } from '../../ultils/helpers'
 import { payPenalty, Delete_user, getOneUser } from '../../apis/User'
 import { toast } from 'react-toastify'
@@ -11,8 +11,10 @@ const Reader = () => {
   const [reader, setReader] = useState([{}]);
   const [readerType, setReaderType] = useState([{}]);
   const [showModal, setShowModal] = useState(false);
+  const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [user_pt, set_user_pt] = useState([]);
   const [user_id, set_user_id] = useState(null);
+  const [currentReader, setCurrentReader] = useState({});
   const [option, setOption] = useState('reader');
   const getReader = async () => {
     const response = await getAllReaders();
@@ -57,16 +59,24 @@ const Reader = () => {
     }
 
   }
-
-
   useEffect(() => {
     getReader();
     getReaderType();
   }, [showModal])
-  console.log(reader)
+  // console.log(reader)
   return (
     <div>
-      {showModal && <ReaderModal option={option} setShowModal={setShowModal} />}
+      {showModal && <ReaderModal 
+                      option={option} 
+                      user_pt={user_pt} 
+                      currentReader={currentReader} 
+                      setShowModal={setShowModal} 
+                    />}
+      {showCollectionModal && <CollectionModal  user_pt={user_pt} 
+                                                currentReader={currentReader}   
+                                                setShowCollectionModal={setShowCollectionModal} 
+                                                user_id={user_id}
+                              />}
       <div className='flex items-center justify-center gap-4'>
         <div
           className={`w-[180px] text-center bg-gray-100 p-2 rounded-md cursor-pointer ${option === 'reader' && 'text-orange-500'}`}
@@ -109,21 +119,19 @@ const Reader = () => {
                       <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.expiry_date))}</td>
                       <td className='px-6 py-4 text-center border-b'>{item.penalty_owed}</td>
                       <td className='flex justify-center items-center border-b '>
-                        <button className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'>Sửa</button>
                         <button
                           className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700' onClick={() => handleDelete_user(item.user_id)}>Xóa</button>
-  
                         {item.penalty_owed > 0 && <button
                           className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
                           onClick={() => handlePayPenalty({ user_id: item.user_id, amount: prompt("nhập số tiền") })}
                         >Trả nợ</button>}
                         {item.penalty_owed > 0 && <button
                           className='p-1 ml-1 w-[80px] bg-cyan-500 text-white rounded-md hover:bg-cyan-700'
-                          onClick={() => handlept(item.user_id)}
+                          onClick={() =>{ handlept(item.user_id); setShowCollectionModal(true); setCurrentReader(item)}}
                         >Phiếu thu tiền</button>}
                       </td>
                     </tr>
-                    {item.user_id === user_id && (
+                    {/* {item.user_id === user_id && (
                       <tr>
                         <td colSpan="3" className="px-6 py-4 text-center border-b">
                           <div className="flex flex-col items-center">
@@ -153,9 +161,7 @@ const Reader = () => {
                           </div>
                         </td>
                       </tr>
-                    )}
-
-
+                    )} */}
                   </React.Fragment>
                 )
               })}

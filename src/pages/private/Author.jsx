@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/public';
 import { getAllAuthors, change_name, delete_name } from '../../apis/Author';
 import AuthorModal from '../../components/private/AuthorModal';
+import { toast } from 'react-toastify';
 
 const Author = () => {
     const [authors, setAuthors] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingAuthorId, setEditingAuthorId] = useState(null);
     const [authorName, setAuthorName] = useState('');
-
+    const [authorId, setAuthorId] = useState();
+    const [type, setType] = useState('add');
     const getAuthor = async () => {
         const response = await getAllAuthors();
         setAuthors(response.data);
@@ -22,6 +24,7 @@ const Author = () => {
     const handleDeleteClick = async(author) => {
         await delete_name(author.author_id, null);
         getAuthor();
+        toast.success('Xóa tác giả thành công');
     };
 
     const handleEditClick = (author) => {
@@ -49,6 +52,9 @@ const Author = () => {
             {showModal && (
                 <AuthorModal
                     setShowModal={setShowModal}
+                    type={type}
+                    authorId={authorId}
+                    authorDetailName={authorName}
                 />
             )}
             <div className="w-[180px]">
@@ -56,6 +62,7 @@ const Author = () => {
                     name="Thêm tác giả"
                     onClick={() => {
                         setShowModal(true);
+                        setType('add');
                     }}
                 />
             </div>
@@ -86,7 +93,11 @@ const Author = () => {
                                 <td className="px-6 py-4 text-center border-b">
                                     <button
                                         className="mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700"
-                                        onClick={() => handleEditClick(item)}
+                                        onClick={() => {
+                                            setShowModal(true);
+                                            setType('edit');
+                                            setAuthorId(item.author_id);
+                                            setAuthorName(item.author_name);}}
                                     >
                                         Sửa
                                     </button>
@@ -97,7 +108,7 @@ const Author = () => {
                                     </button>
                                 </td>
                             </tr>
-                            {editingAuthorId === item.author_id && (
+                            {/* {editingAuthorId === item.author_id && (
                                 <tr>
                                     <td colSpan="3" className="px-6 py-4 text-center border-b">
                                         <div className="flex flex-col items-center">
@@ -125,7 +136,7 @@ const Author = () => {
                                         </div>
                                     </td>
                                 </tr>
-                            )}
+                            )} */}
                         </React.Fragment>
                     ))}
                 </tbody>

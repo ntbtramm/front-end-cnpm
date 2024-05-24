@@ -43,6 +43,7 @@ const Report = () => {
       getAllOverdueReport()
     }
   }, [reportType, day, month, year])
+  console.log(report)
   return (
     <>
       <div className='flex flex-col gap-4'>
@@ -104,6 +105,7 @@ const Report = () => {
                   <tr>
                     <th className='border p-2'>STT</th>
                     <th className='border p-2'>Tên thể loại</th>
+                    <th className='border p-2'>Tổng số lượt mượn</th>
                     <th className='border p-2'>Tỉ lệ</th>
                   </tr>
                 </thead>
@@ -113,6 +115,7 @@ const Report = () => {
                       <tr>
                         <td className='border p-2 text-center'>{item.genre_id}</td>
                         <td className='border p-2 text-center'>{item.genre_name}</td>
+                        <td className='border p-2 text-center'>{item.total_lending}</td>
                         <td className='border p-2 text-center'>{item.ratio}</td>
                       </tr>
                     )

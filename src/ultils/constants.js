@@ -22,7 +22,7 @@ export const navigation = [
     {
         title: 'Phiếu mượn',
         path: '/borrow',
-        for_admin: true
+        for_admin: false
     },
     {
         title: 'Sách',

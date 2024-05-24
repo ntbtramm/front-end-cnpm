@@ -9,3 +9,9 @@ export const createGenre = async(data)=>Axios({
     method:'POST',
     data
 })
+
+export const updateGenre = async(data)=>Axios({
+    url:`/api/genre/change_name`,
+    method:'POST',
+    data    
+})

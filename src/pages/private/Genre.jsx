@@ -6,6 +6,9 @@ import GenreModal from '../../components/private/GenreModal'
 const Genre = () => {
     const [genre,setGenre]=useState([])
     const [showModal,setShowModal]=useState(false)
+    const [genreId,setGenreId]=useState()  
+    const [genreName,setGenreName]=useState() 
+    const [type,setType]=useState('add')
     const getGenre = async()=>{
         const response = await getAllGenre()
         setGenre(response.data)
@@ -16,11 +19,16 @@ const Genre = () => {
 
   return (
     <div>
-        {showModal && <GenreModal setShowModal={setShowModal}/> }
+        {showModal && <GenreModal 
+                        type={type} 
+                        setShowModal={setShowModal}
+                        genreId={genreId}
+                        genreCurrentName={genreName}    
+                    /> }
         <div className='w-[180px]'>
         <Button
             name='Thêm thể loại'
-            onClick={()=>{setShowModal(true)}}
+            onClick={()=>{setShowModal(true);setType('add')}}
         />
         </div>
         <table className='m-auto mt-6 w-full border-collapse shadow-lg'>
@@ -38,8 +46,15 @@ const Genre = () => {
                             <td className='px-6 py-4 text-center border-b'>{item.genre_id}</td>
                             <td className='px-6 py-4 text-center border-b'>{item.genre_name}</td>
                             <td className='px-6 py-4 text-center border-b'>
-                                <button className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'>Sửa</button>
-                                <button className='p-1 w-[80px] bg-red-500 text-white rounded-md hover:bg-red-700'>Xóa</button>
+                                <button 
+                                    className='mr-2 w-[80px] p-1 bg-blue-500 text-white rounded-md hover:bg-blue-700'
+                                    onClick={()=>{
+                                        setShowModal(true)
+                                        setType('edit')
+                                        setGenreId(item.genre_id)
+                                        setGenreName(item.genre_name)
+                                    }}
+                                >Sửa</button>
                             </td>
                         </tr>
                     )
