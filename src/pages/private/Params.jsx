@@ -23,16 +23,21 @@ const Params = () => {
     }
   }
   const updateParams = async({param_name,new_value})=>{
-    const data = {
-      param_name,
-      new_value
+    if(!param_name || !new_value){
+      toast.error('Vui lòng nhập đầy đủ thông tin')
     }
-    const response = await updateOneParams(data)
-    if(response.status === 200){
-      getParams()
-      toast.success('Cập nhật thành công')
+    else{
+      const data = {
+        param_name,
+        new_value
+      }
+      const response = await updateOneParams(data)
+      if(response.status === 200){
+        getParams()
+        toast.success('Cập nhật thành công')
+      }
     }
-  }
+    }
   useEffect(() => {
     getParams()
   }, [])
