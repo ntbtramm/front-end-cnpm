@@ -30,10 +30,6 @@ const Reader = () => {
       toast.error('Trả nợ thất bại')
     }
   }
-  const getReaderTypeName = async(id)=>{
-    const response = await getOneReaderType(id)
-    return response.data
-  }
   useEffect(() => {
       getReader()
       getReaderType()
@@ -78,7 +74,7 @@ const Reader = () => {
                   <tr key={item.reader_id} className=''>
                     <td className='px-6 py-4 text-center border-b'>{item.user_id}</td>
                     <td className='px-6 py-4 text-center border-b'>{item.user_name}</td>
-                    <td className='px-6 py-4 text-center border-b'>{item.reader_type_id === null ? 'không có' : ()=>getReaderTypeName(item.reader_type_id)}</td>
+                    <td className='px-6 py-4 text-center border-b'>{item.reader_type_id === null ? 'không có' : item.reader_type} {}</td>
                     <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.created_at))}</td>
                     <td className='px-6 py-4 text-center border-b'>{formatTime(new Date(item.expiry_date))}</td>
                     <td className='px-6 py-4 text-center border-b'>{item.penalty_owed}</td>
