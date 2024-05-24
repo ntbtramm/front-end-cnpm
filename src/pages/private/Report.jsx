@@ -177,7 +177,7 @@ const Report = () => {
                         <tr>
                           <td className='border p-2 text-center'>{item.lending_id}</td>
                           <td className='border p-2 text-center'>{item.book_name}</td>
-                          <td className='border p-2 text-center'>{item.lending_date}</td>
+                          <td className='border p-2 text-center'>{formatTime(new Date(item.lending_date))}</td>
                           <td className='border p-2 text-center'>{item.num_day_late}</td>
                         </tr>
                       )
