@@ -46,7 +46,7 @@ const BookReceipts = () => {
 
     useEffect(() => {
         getBook_re()
-    }, [])
+    }, [showModal])
     return (
         <div>
             {showModal && <BookReceiptModal setShowModal={setShowModal} />}

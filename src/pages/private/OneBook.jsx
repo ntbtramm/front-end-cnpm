@@ -61,7 +61,7 @@ const OneBook = () => {
 
 
   function Edition(props) {
-    return <li><br />#{props.item.book_id} <br /> publication year: {props.item.publication_year}<br /> publisher name: {props.item.publisher_name}<br /> available: {props.item.available} <br /> {user?.is_admin === true && props.item.available != 0 ? <Button
+    return <li><br /><span className='font-semibold'>Mã sách</span> #{props.item.book_id} <br /> publication year: {props.item.publication_year}<br /> publisher name: {props.item.publisher_name}<br /> available: {props.item.available} <br /> {user?.is_admin === true && props.item.available != 0 ? <Button
       name='Mượn sách'
       style='bg-black text-white p-2 rounded-2xl hover:text-gray-300 w-[180px]'
       onClick={() => handleBorrow(props.item.book_id)}
@@ -80,7 +80,7 @@ const OneBook = () => {
       </div>
       <div className='w-1/2 flex flex-col gap-12'>
         <div className='flex gap-3 items-center'>
-          <span className='font-semibold text-[24px]'>Mã sách: </span>
+          <span className='font-semibold text-[24px]'>Mã tựa sách: </span>
           <span className='text-[24px]'>{bookDetail?.book_title_id}</span>
         </div>
         <div className='flex gap-3 items-center'>

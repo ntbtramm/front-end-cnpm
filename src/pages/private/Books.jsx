@@ -76,7 +76,7 @@ const Books = () => {
                         <Link to={`/books/${item.book_title_id}`}>
                             <div key={item.book_title_id} className='flex flex-col items-center gap-2 p-4 bg-white m-4 hover:shadow-xl'>
                                 <img src={get_image_url(item.image_id)} alt={item.book_name} className='w-[150px] h-[200px]' />
-                                <span>Mã sách: {item.book_title_id}</span>
+                                <span>Mã tựa sách: {item.book_title_id}</span>
                                 <span>Tên sách: {item.book_name}</span>
                                 <span>Thể loại: {item.genre_name}</span>
                                 <span>Tác giả: {get_authors(item.authors)}</span>
